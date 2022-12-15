@@ -7,7 +7,7 @@ import webcolors as wc
 from PIL import ImageFont, Image, ImageDraw
 
 from library import LCD_Config, LCD_1in44, LCD_1in3
-
+import mido
 from library.func import *
 import RPi.GPIO as GPIO
 

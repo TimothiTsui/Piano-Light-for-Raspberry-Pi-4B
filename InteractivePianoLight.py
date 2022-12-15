@@ -75,7 +75,7 @@ else:
     KEYRIGHT = 20
     KEYLEFT = 16
     KEYUP = 2
-    KEYDOWN = 18
+    KEYDOWN = 23
     KEY1 = 15
     KEY3 = 21
     

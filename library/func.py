@@ -13,7 +13,10 @@ def find_between(s, start, end):
         return (s.split(start))[1].split(end)[0]
     except:
         return False
-    
+
+def clamp(val, val_min, val_max):
+    return max(val_min, min(val, val_max))
+  
 def get_rainbow_colors(pos, color):
     pos = int(pos)
     if pos < 85:

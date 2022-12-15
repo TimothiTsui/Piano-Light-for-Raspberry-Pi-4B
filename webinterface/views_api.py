@@ -1,6 +1,6 @@
 from webinterface import webinterface
 from flask import render_template, send_file, request, jsonify
-from werkzeug.utils import safe_join
+from werkzeug.security import safe_join
 from library.func import find_between, theaterChase, theaterChaseRainbow, sound_of_da_police, scanner, breathing, \
     rainbow, rainbowCycle, chords, fastColorWipe, play_midi, clamp
 import psutil

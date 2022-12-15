@@ -2,7 +2,7 @@ from flask import Flask
 import asyncio
 import websockets
 import threading
-from lib.functions import get_ip_address
+from library.func import get_ip_address
 import time
 
 UPLOAD_FOLDER = 'Songs/'

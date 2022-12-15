@@ -1,5 +1,5 @@
 import mido
-from lib import connectall
+from library import connectall
 import time
 
 class MidiPorts:

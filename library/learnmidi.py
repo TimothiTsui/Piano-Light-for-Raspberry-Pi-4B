@@ -7,8 +7,8 @@ import subprocess
 
 import os
 
-from lib.functions import clamp, fastColorWipe, find_between, get_note_position
-from lib.neopixel import Color
+from library.func import clamp, fastColorWipe, find_between, get_note_position
+from library.neopixel import Color
 
 import numpy as np
 import pickle

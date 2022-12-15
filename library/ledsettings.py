@@ -3,8 +3,8 @@ import random
 import time
 from xml.dom import minidom
 
-from lib.functions import fastColorWipe, find_between, clamp
-from lib.neopixel import Color
+from library.func import fastColorWipe, find_between, clamp
+from library.neopixel import Color
 
 
 class LedSettings:

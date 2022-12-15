@@ -72,17 +72,17 @@ if args.rotatescreen != "true":
     KEY1 = 21
     KEY3 = 16
 else:
-    KEYRIGHT = 5
-    KEYLEFT = 26
-    KEYUP = 19
-    KEYDOWN = 6
-    KEY1 = 16
+    KEYRIGHT = 20
+    KEYLEFT = 16
+    KEYUP = 2
+    KEYDOWN = 18
+    KEY1 = 15
     KEY3 = 21
     
     
-KEY2 = 20
-JPRESS = 13
-BACKLIGHT = 24
+KEY2 = 17
+JPRESS = 3
+BACKLIGHT = 13
 # pin numbers are interpreted as BCM pin numbers.
 GPIO.setmode(GPIO.BCM)
 # Sets the pin as input and sets Pull-up mode for the pin.

@@ -1,5 +1,5 @@
 import argparse
-from lib.functions import *
+from library.func import *
 
 
 class LedStrip:
@@ -20,7 +20,7 @@ class LedStrip:
 
         # LED strip configuration:
         self.LED_COUNT = int(self.led_number)  # Number of LED pixels.
-        self.LED_PIN = 18  # GPIO pin connected to the pixels (18 uses PWM!).
+        self.LED_PIN = 23  # GPIO pin connected to the pixels (18 uses PWM!).
         # LED_PIN        = 10      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
         self.LED_FREQ_HZ = 800000  # LED signal frequency in hertz (usually 800khz)
         self.LED_DMA = 10  # DMA channel to use for generating signal (try 10)

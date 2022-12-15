@@ -5,7 +5,7 @@ import psutil
 import datetime
 import socket
 from waitress import serve
-from lib.neopixel import *
+from library.neopixel import *
 
 
 def find_between(s, start, end):

@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 import numpy as np
-from lib import LCD_Config
+from library import LCD_Config
 
 
 class LCD(object):

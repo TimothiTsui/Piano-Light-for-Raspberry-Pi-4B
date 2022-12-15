@@ -446,7 +446,56 @@ def scanner(ledstrip, ledsettings, menu, wait_ms=1):
     menu.screensaver_is_running = False
     fastColorWipe(strip, True, ledsettings)
 
+def play_midi(song_path, midiports, saving, menu, ledsettings, ledstrip):
+    midiports.pending_queue.append(mido.Message('note_on'))
 
+    if song_path in saving.is_playing_midi.keys():
+        menu.render_message(song_path, "Already playing", 2000)
+        return
+
+    saving.is_playing_midi.clear()
+
+    saving.is_playing_midi[song_path] = True
+    menu.render_message("Playing: ", song_path, 2000)
+    saving.t = threading.currentThread()
+
+    try:
+        mid = mido.MidiFile("Songs/" + song_path)
+        fastColorWipe(ledstrip.strip, True, ledsettings)
+        # length = mid.length
+        t0 = False
+        total_delay = 0
+        delay = 0
+        for message in mid:
+            if song_path in saving.is_playing_midi.keys():
+                if not t0:
+                    t0 = time.time()
+
+                total_delay += message.time
+                current_time = (time.time() - t0) + message.time
+                drift = total_delay - current_time
+
+                if (drift < 0):
+                    delay = message.time + drift
+                else:
+                    delay = message.time
+                if (delay < 0):
+                    delay = 0
+
+                if delay > 0:
+                    time.sleep(delay)
+                if not message.is_meta:
+                    midiports.playport.send(message)
+                    midiports.pending_queue.append(message.copy(time=0))
+
+            else:
+                break
+        print('play time: {:.2f} s (expected {:.2f})'.format(time.time() - t0, total_delay))
+        # print('play time: {:.2f} s (expected {:.2f})'.format(time.time() - t0, length))
+        # saving.is_playing_midi = False
+    except:
+        menu.render_message(song_path, "Can't play this file", 2000)
+    saving.is_playing_midi.clear()
         
 def screensaver(menu, midiports, saving, ledstrip, ledsettings):
     KEY2 = 20

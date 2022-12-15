@@ -1,11 +1,11 @@
 from webinterface import webinterface
 from flask import render_template, send_file, request, jsonify
 from werkzeug.utils import safe_join
-from lib.functions import find_between, theaterChase, theaterChaseRainbow, sound_of_da_police, scanner, breathing, \
+from library.func import find_between, theaterChase, theaterChaseRainbow, sound_of_da_police, scanner, breathing, \
     rainbow, rainbowCycle, chords, fastColorWipe, play_midi, clamp
 import psutil
 import threading
-from lib.neopixel import *
+from library.neopixel import *
 import webcolors as wc
 import mido
 from xml.dom import minidom

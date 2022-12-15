@@ -603,3 +603,57 @@ def screensaver(menu, midiports, saving, ledstrip, ledsettings):
             midiports.reconnect_ports()
             menu.show()
             break
+
+def chords(scale, ledstrip, ledsettings, menu):
+    menu.screensaver_is_running = False
+    time.sleep(0.2)
+    strip = ledstrip.strip
+    if menu.screensaver_is_running:
+        return
+    fastColorWipe(strip, True, ledsettings)
+    menu.t = threading.currentThread()
+    j = 0
+    menu.screensaver_is_running = True
+    while menu.screensaver_is_running:
+        last_state = 1
+        cover_opened = GPIO.input(SENSECOVER)
+        while not cover_opened:
+            if last_state != cover_opened:
+                # clear if changed
+                fastColorWipe(strip, True, ledsettings)
+            time.sleep(.1)
+            last_state = cover_opened
+            cover_opened = GPIO.input(SENSECOVER)
+
+        if ledsettings.backlight_brightness_percent == 0:
+            bright = 100
+        else:
+            bright = ledsettings.backlight_brightness_percent
+
+        bright /= 100
+
+        if (ledsettings.low_density == 1):
+            density = 1
+        else:
+            density = 2
+
+        leds_to_update = list(range(strip.numPixels()))
+
+        for i in range(int(strip.numPixels() / density)):
+            note = i + 21
+            note_position = get_note_position(note, ledstrip, ledsettings)
+            c = get_scale_color(scale, note, ledsettings)
+
+            leds_to_update.remove(note_position)
+
+            if check_if_led_can_be_overwrite(note_position, ledstrip, ledsettings):
+                strip.setPixelColor(note_position, Color(int(c[1] * bright), int(c[0] * bright), int(c[2] * bright)))
+
+        for i in leds_to_update:
+            if check_if_led_can_be_overwrite(i, ledstrip, ledsettings):
+                strip.setPixelColor(i, Color(0, 0, 0))
+
+        strip.show()
+        time.sleep(0.05)
+    menu.screensaver_is_running = False
+    fastColorWipe(strip, True, ledsettings)

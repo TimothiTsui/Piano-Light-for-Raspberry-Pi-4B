@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 
 .vscode/arm_toolchain.json
+
+.DS_Store

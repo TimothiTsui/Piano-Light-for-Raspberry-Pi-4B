@@ -8,7 +8,6 @@ import socket
 
 from library.neopixel import *
 
-
 SENSECOVER = 12
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(SENSECOVER, GPIO.IN, GPIO.PUD_UP)

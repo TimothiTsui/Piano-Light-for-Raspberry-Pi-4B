@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  pyanoled:
+    image: pyanoled:latest
+    container_name: pyanoled
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    entrypoint:
+      - /bin/bash
+      - docker/entrypoint.sh
+    volumes:
+      - ".:/opt/app"

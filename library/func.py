@@ -1,5 +1,6 @@
 import threading
 import time
+import mido
 import RPi.GPIO as GPIO
 import psutil
 import datetime

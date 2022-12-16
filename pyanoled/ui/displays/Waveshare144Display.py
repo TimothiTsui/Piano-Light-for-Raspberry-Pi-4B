@@ -5,7 +5,7 @@ from logging import Logger
 from typing import Dict
 
 
-class Waveshare144Display(Display):
+class LCD_1in3Display(Display):
     def __init__(self, l: Logger):
         Display.__init__(self, l)
         self._lcd = LCD_1in3.LCD(self)

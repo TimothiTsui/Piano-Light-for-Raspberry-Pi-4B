@@ -81,7 +81,7 @@ else:
     
     
 KEY2 = 17
-JPRESS = 3
+JPRESS = 4
 BACKLIGHT = 13
 # pin numbers are interpreted as BCM pin numbers.
 GPIO.setmode(GPIO.BCM)

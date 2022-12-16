@@ -18,7 +18,7 @@ from library.savemidi import SaveMIDI
 from library.usersettings import UserSettings
 from library.func import *
 from webinterface import webinterface
-
+from library.neopixel import *
 # change the current working directory
 # to specified path
 os.chdir(sys.path[0])

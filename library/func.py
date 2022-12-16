@@ -8,6 +8,9 @@ from waitress import serve
 from library.neopixel import *
 
 
+def shift(l, n):
+    return l[n:] + l[:n]
+
 def find_between(s, start, end):
     try:
         return (s.split(start))[1].split(end)[0]

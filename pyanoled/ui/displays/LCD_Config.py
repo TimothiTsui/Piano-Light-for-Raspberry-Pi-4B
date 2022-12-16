@@ -33,7 +33,7 @@ LCD_E  = 8
 LCD_D4 = 25
 LCD_D5 = 24
 LCD_D6 = 23
-LCD_D7 = 18
+LCD_D7 = 26
 
 # Define some device constants
 LCD_WIDTH = 16    # Maximum characters per line

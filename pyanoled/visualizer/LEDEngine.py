@@ -14,8 +14,8 @@ import math
 import time
 
 
-DEFAULT_COLOR_SCHEME = 'Mono'
-DEFAULT_EFFECT = 'Light'
+DEFAULT_COLOR_SCHEME = 'one'
+DEFAULT_EFFECT = 'Fade'
 
 class LEDEngine(object):
     def __init__(self, l: Logger, c: Configuration, state: State,  event_queue: EventQueue):
@@ -24,7 +24,7 @@ class LEDEngine(object):
         self._state = state
         self._event_queue = event_queue
 
-        self._l.info('initializing led visualizer...')
+        self._l.info('initializing WS2812 Strip...')
         self._pixelstrip = PixelStrip(
             self._c.get('visualizer.strip.count'),
             self._c.get('visualizer.strip.gpio_pin'),

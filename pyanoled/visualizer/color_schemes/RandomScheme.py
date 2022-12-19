@@ -1,13 +1,14 @@
 from pyanoled.event.Events import KeyEvent
 from pyanoled.visualizer.color_schemes.Scheme import Scheme
 
+from random import randint
 from typing import Tuple
 
 
-class MonoScheme(Scheme):
+class Random(Scheme):
     """
-    one color for all keys
+    random colors every time
     """
 
     def get_color(self, key: KeyEvent) -> Tuple:
-        return (255, 255, 255)
+        return (randint(0, 255), randint(0, 255), randint(0, 255))

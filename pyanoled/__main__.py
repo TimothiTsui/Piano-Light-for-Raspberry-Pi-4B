@@ -1,6 +1,7 @@
 from pyanoled import get_conf_path
 from pyanoled.Configuration import Configuration
 from pyanoled.device.MIDIReader import MIDIReader
+from pyanoled.MidiLearner import MIDILearner
 from pyanoled.event.EventQueue import EventQueue
 from pyanoled.State import State
 from pyanoled.ui.ControlApp import ControlApp
@@ -12,7 +13,7 @@ import re
 import subprocess
 
 
-class PyanoLED(object):
+class Praspiano(object):
     def __init__(self, l: Logger, c: Configuration):
         self._l = l
         self._c = c
@@ -42,7 +43,7 @@ class PyanoLED(object):
             self._l.info('ports linked...')
 
     def run(self):
-        self._l.info('================================== PYANOLED START ==================================')
+        self._l.info('================================== PraspiAno START ==================================')
 
         event_queue = EventQueue()
         state = State()
@@ -52,7 +53,7 @@ class PyanoLED(object):
 
         while state.is_on() or state.is_reload():
             if state.is_reload():
-                self._l.info('reloading pyanoled...')
+                self._l.info('reloading PRaspiAno...')
                 self._unlink_ports()
                 self._link_ports()
                 state.on()
@@ -60,12 +61,13 @@ class PyanoLED(object):
             ui_thread = ControlApp(getLogger('ui'), self._c, state)
             visualizer_thread = LEDEngine(getLogger('visualizer'), self._c, state, event_queue)
             midi_thread = MIDIReader(getLogger('midi'), self._c, state, event_queue)
-            with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+            midilearn_thread = MIDILearner(getLogger('midi-learn'), self._c, state, event_queue)
+            with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
                 executor.submit(ui_thread.run)
                 executor.submit(visualizer_thread.run)
                 executor.submit(midi_thread.run)
-
-        self._l.info('================================== PYANOLED END ==================================')
+                executor.submit(midilearn_thread.run)
+        self._l.info('================================== PRaspiAno END ==================================')
 
         if state.is_off():
             self._unlink_ports()
@@ -75,7 +77,7 @@ def main():
     c = Configuration(get_conf_path('cse467s.conf'))
     config.dictConfig(c.log_configuration)
 
-    app = PyanoLED(getLogger('pyanoled'), c)
+    app = Praspiano(getLogger('PRaspiano'), c)
     app.run()
 
 if __name__ == "__main__":

@@ -4,13 +4,10 @@ from pyanoled.visualizer.color_schemes.Scheme import Scheme
 from typing import Tuple
 
 
-class DividedScheme(Scheme):
+class oneScheme(Scheme):
     """
-    divided into two colors
+    one color for all keys
     """
 
     def get_color(self, key: KeyEvent) -> Tuple:
-        if key.note < 60:
-            return (255, 0, 0)
-        else:
-            return (0, 0, 255)
+        return (255, 255, 255)

@@ -12,7 +12,7 @@ import RPi.GPIO as GPIO
 import time
 
 
-DEFAULT_DISPLAY = 'LCD_1in3'
+DEFAULT_DISPLAY = 'Adafruit_2088'
 
 class ControlApp(object):
     def __init__(self, l: Logger, c: Configuration, state: State):
@@ -25,33 +25,33 @@ class ControlApp(object):
         self._menu = MainMenu(self._l, self._c, self._display, self._state, None)
 
         # key press to channel #
-        self._dpad_up = 6
-        self._dpad_down = 19
-        self._dpad_left = 5
-        self._dpad_right = 26
-        self._dpad_press = 13
-        self._button_a = 21
-        self._button_b = 20
-        self._button_c = 16
+        self._joystk_up = 6
+        self._joystk_down = 19
+        self._joystk_left = 5
+        self._joystk_right = 26
+        self._joystk_press = 13
+        self._button_x = 21
+        self._button_y = 20
+        self._button_a = 16
 
         # init gpio
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self._dpad_up, GPIO.IN, GPIO.PUD_UP)
-        GPIO.setup(self._dpad_down, GPIO.IN, GPIO.PUD_UP)
-        GPIO.setup(self._dpad_left, GPIO.IN, GPIO.PUD_UP)
-        GPIO.setup(self._dpad_right, GPIO.IN, GPIO.PUD_UP)
-        GPIO.setup(self._dpad_press, GPIO.IN, GPIO.PUD_UP)
+        GPIO.setup(self._joystk_up, GPIO.IN, GPIO.PUD_UP)
+        GPIO.setup(self._joystk_down, GPIO.IN, GPIO.PUD_UP)
+        GPIO.setup(self._joystk_left, GPIO.IN, GPIO.PUD_UP)
+        GPIO.setup(self._joystk_right, GPIO.IN, GPIO.PUD_UP)
+        GPIO.setup(self._joystk_press, GPIO.IN, GPIO.PUD_UP)
+        GPIO.setup(self._button_x, GPIO.IN, GPIO.PUD_UP)
+        GPIO.setup(self._button_y, GPIO.IN, GPIO.PUD_UP)
         GPIO.setup(self._button_a, GPIO.IN, GPIO.PUD_UP)
-        GPIO.setup(self._button_b, GPIO.IN, GPIO.PUD_UP)
-        GPIO.setup(self._button_c, GPIO.IN, GPIO.PUD_UP)
-        GPIO.add_event_detect(self._dpad_up, GPIO.RISING)
-        GPIO.add_event_detect(self._dpad_down, GPIO.RISING)
-        GPIO.add_event_detect(self._dpad_left, GPIO.RISING)
-        GPIO.add_event_detect(self._dpad_right, GPIO.RISING)
-        GPIO.add_event_detect(self._dpad_press, GPIO.RISING)
+        GPIO.add_event_detect(self._joystk_up, GPIO.RISING)
+        GPIO.add_event_detect(self._joystk_down, GPIO.RISING)
+        GPIO.add_event_detect(self._joystk_left, GPIO.RISING)
+        GPIO.add_event_detect(self._joystk_right, GPIO.RISING)
+        GPIO.add_event_detect(self._joystk_press, GPIO.RISING)
+        GPIO.add_event_detect(self._button_x, GPIO.RISING)
+        GPIO.add_event_detect(self._button_y, GPIO.RISING)
         GPIO.add_event_detect(self._button_a, GPIO.RISING)
-        GPIO.add_event_detect(self._button_b, GPIO.RISING)
-        GPIO.add_event_detect(self._button_c, GPIO.RISING)
 
     def _get_display(self, display: str) -> Type[Display]:
         try:
@@ -80,34 +80,34 @@ class ControlApp(object):
             self._menu.show()
 
             while self._state.is_on():
-                if GPIO.event_detected(self._dpad_up):
-                    self._l.debug('dpad up pressed')
+                if GPIO.event_detected(self._joystk_up):
+                    self._l.debug('joystick up pressed')
                     self._menu.action_up()
                     self._menu.show()
-                if GPIO.event_detected(self._dpad_down):
-                    self._l.debug('dpad down pressed')
+                if GPIO.event_detected(self._joystk_down):
+                    self._l.debug('joystick down pressed')
                     self._menu.action_down()
                     self._menu.show()
-                if GPIO.event_detected(self._dpad_left):
-                    self._l.debug('dpad left pressed')
+                if GPIO.event_detected(self._joystk_left):
+                    self._l.debug('joystick left pressed')
                     pass
-                if GPIO.event_detected(self._dpad_right):
-                    self._l.debug('dpad right pressed')
+                if GPIO.event_detected(self._joystk_right):
+                    self._l.debug('joystick right pressed')
                     pass
-                if GPIO.event_detected(self._dpad_press):
-                    self._l.debug('dpad pressed')
+                if GPIO.event_detected(self._joystk_press):
+                    self._l.debug('joystick pressed')
                     pass
-                if GPIO.event_detected(self._button_a):
-                    self._l.debug('button a pressed')
+                if GPIO.event_detected(self._button_x):
+                    self._l.debug('button x pressed')
                     m = self._menu.action_confirm()
                     if m:
                         self._menu = m
                         self._menu.show()
-                if GPIO.event_detected(self._button_b):
-                    self._l.debug('button b pressed')
+                if GPIO.event_detected(self._button_y):
+                    self._l.debug('button y pressed')
                     pass
-                if GPIO.event_detected(self._button_c):
-                    self._l.debug('button c pressed')
+                if GPIO.event_detected(self._button_a):
+                    self._l.debug('button a pressed')
                     m = self._menu.action_back()
                     if m:
                         self._menu = m

@@ -24,28 +24,18 @@
  # THE SOFTWARE.
  #
  
+import spidev
 import RPi.GPIO as GPIO
 import time
 
-# Define GPIO to LCD mapping
-LCD_RS = 7
-LCD_E  = 8
-LCD_D4 = 25
-LCD_D5 = 24
-LCD_D6 = 23
-LCD_D7 = 26
+# Pin definition
+LCD_RST_PIN         = 27
+LCD_DC_PIN          = 25
+LCD_CS_PIN          = 8
+LCD_BL_PIN          = 24
 
-# Define some device constants
-LCD_WIDTH = 16    # Maximum characters per line
-LCD_CHR = True
-LCD_CMD = False
- 
-LCD_LINE_1 = 0x80 # LCD RAM address for the 1st line
-LCD_LINE_2 = 0xC0 # LCD RAM address for the 2nd line
- 
-# Timing constants
-E_PULSE = 0.0005
-E_DELAY = 0.0005
+# SPI device, bus = 0, device = 0
+SPI = spidev.SpiDev(0, 0)
 
 def epd_digital_write(pin, value):
     GPIO.output(pin, value)
@@ -53,16 +43,18 @@ def epd_digital_write(pin, value):
 def Driver_Delay_ms(xms):
     time.sleep(xms / 1000.0)
 
+def SPI_Write_Byte(data):
+    SPI.writebytes(data)
 
 def GPIO_Init():
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
-    GPIO.setup(LCD_E, GPIO.OUT)  # E
-    GPIO.setup(LCD_RS, GPIO.OUT) # RS
-    GPIO.setup(LCD_D4, GPIO.OUT) # DB4
-    GPIO.setup(LCD_D5, GPIO.OUT) # DB5
-    GPIO.setup(LCD_D6, GPIO.OUT) # DB6
-    GPIO.setup(LCD_D7, GPIO.OUT) # DB7
+    GPIO.setup(LCD_RST_PIN, GPIO.OUT)
+    GPIO.setup(LCD_DC_PIN, GPIO.OUT)
+    GPIO.setup(LCD_CS_PIN, GPIO.OUT)
+    GPIO.setup(LCD_BL_PIN, GPIO.OUT)
+    SPI.max_speed_hz = 9000000
+    SPI.mode = 0b00
     return 0
 
 ### END OF FILE ###

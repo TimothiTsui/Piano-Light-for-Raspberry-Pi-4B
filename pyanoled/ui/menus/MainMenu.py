@@ -4,6 +4,7 @@ from pyanoled.ui.menus.Menu import Menu
 from pyanoled.ui.menus.ColorSchemeMenu import ColorSchemeMenu
 from pyanoled.ui.menus.EffectMenu import EffectMenu
 from pyanoled.ui.menus.SelectionItem import SelectionItem
+from pyanoled.ui.menus.LearnMenu import LearnMenu
 from pyanoled.State import State
 
 from logging import Logger
@@ -14,12 +15,12 @@ class MainMenu(Menu):
     def __init__(self, l: Logger, c: Configuration, d: Type[Display], state: State, parent:Optional[Type[Menu]]):
         super().__init__(l, c, d, state, parent)
 
-        self._title = 'PyanoLED'
+        self._title = 'PRaspiano CSE467s'
         self._description = ''
         self._selections = (
             ColorSchemeMenu(self._l, self._c, self._display, self._state, self),
             EffectMenu(self._l, self._c, self._display, self._state, self),
-            SelectionItem('Power', 'Power options for PyanoLED'),
+            SelectionItem('Power', 'Power options for PRaspiano'),
         )
 
     def action_confirm(self) -> Optional[Type[Menu]]:
